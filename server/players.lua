@@ -82,8 +82,7 @@ end)
 
 RegisterNetEvent("ptp:showspawnmenu")
 AddEventHandler("ptp:showspawnmenu", function()
-StopResource("jointrans")
-StartResource("jointrans")
+TriggerClientEvent("ptp:openmenu")
 end)
 
 vehicles = {}
