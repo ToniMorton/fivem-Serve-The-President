@@ -22,13 +22,7 @@ function CreateMenu(menu)
 	menu:AddItem(item4)	
 	
 	local item5 = NativeUI.CreateItem("Civilian", "Spawn as a Civilian")
-	menu:AddItem(item5)	
-	
-	local item6 = NativeUI.CreateItem("Police", "Spawn as a Police Officer")
-	menu:AddItem(item6)	
-	
-	local item7 = NativeUI.CreateItem("Air Force", "Spawn as a member of the Air Force")
-	menu:AddItem(item7)
+	menu:AddItem(item5)
 	
     menu.OnItemSelect = function(sender, item, index)
         if item == item1 then
@@ -55,17 +49,7 @@ function CreateMenu(menu)
 			TriggerEvent("ptp:selectteam", 5)
 			SpawnMenu:Visible(not SpawnMenu:Visible())
 			SpawnSelected = true
-        end				
-		if item == item6 then
-			TriggerEvent("ptp:selectteam", 6)
-			SpawnMenu:Visible(not SpawnMenu:Visible())
-			SpawnSelected = true
-        end				
-		if item == item7 then
-			TriggerEvent("ptp:selectteam", 7)
-			SpawnMenu:Visible(not SpawnMenu:Visible())
-			SpawnSelected = true
-        end		
+        end
     end
 end
 

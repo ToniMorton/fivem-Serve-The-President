@@ -4,8 +4,6 @@ local TeamVP = 0
 local TeamBodyguard = 0
 local TeamTerrorist = 0
 local TeamCivilian = 0
-local TeamPolice = 0
-local TeamAirForce = 0
 
 RegisterNetEvent("ptp:sendteamcount")
 AddEventHandler("ptp:sendteamcount", function(TeamNone, TeamPres, TeamVP, TeamBodyguard, TeamTerrorist, TeamCivilian, TeamPolice, TeamAirForce)
@@ -15,8 +13,6 @@ TeamVP = TeamVP
 TeamBodyguard = TeamBodyguard
 TeamTerrorist = TeamTerrorist
 TeamCivilian = TeamCivilian
-TeamPolice = TeamPolice
-TeamAirForce = TeamAirForce
 end)
 
 Citizen.CreateThread(function()
@@ -76,28 +72,6 @@ end
 if selectedteam == 5 then 
 	if TeamCivilian >= 0 and TeamCivilian <= 12 then
 		TeamMenu.OnClick(TeamId.Civil)
-	else
-		TeamMenu.OnClick(TeamId.None)
-		SetNotificationTextEntry("STRING")
-		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
-		DrawNotification(false, true)
-	end
-end
-
-if selectedteam == 6 then
-	if TeamPolice >= 0 and TeamPolice <= 10 then
-		TeamMenu.OnClick(TeamId.Police)
-	else
-		TeamMenu.OnClick(TeamId.None)
-		SetNotificationTextEntry("STRING")
-		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
-		DrawNotification(false, true)
-	end
-end
-
-if selectedteam == 7 then
-	if TeamAirForce >= 0 and TeamAirForce <= 5 then
-		TeamMenu.OnClick(TeamId.AirForce)
 	else
 		TeamMenu.OnClick(TeamId.None)
 		SetNotificationTextEntry("STRING")

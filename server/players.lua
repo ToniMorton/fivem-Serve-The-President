@@ -4,7 +4,6 @@ TeamVP = 0
 TeamBodyguard = 0
 TeamTerrorist = 0
 TeamCivilian = 0
-TeamPolice = 0
 
 local players = {}
 
@@ -50,8 +49,6 @@ TeamVP = 0
 TeamBodyguard = 0
 TeamTerrorist = 0
 TeamCivilian = 0
-TeamPolice = 0
-TeamAirForce = 0
 
 end)
 
@@ -71,10 +68,6 @@ AddEventHandler("ptp:getteamcounts", function()
 			TeamTerrorist = TeamTerrorist + 1
 		elseif teamdatasv[i].tid == 5 then
 			TeamCivilian = TeamCivilian + 1
-		elseif teamdatasv[i].tid == 6 then
-			TeamPolice = TeamPolice + 1
-		elseif teamdatasv[i].tid == 7 then
-			TeamAirForce = TeamAirForce + 1
 		end
 	end
 

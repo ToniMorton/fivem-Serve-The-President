@@ -12,9 +12,3 @@ So pretty much one team has to protect a president (player) from another team, w
 * Terrorists - Kill president by any means
 
 * Civilians - Pretty much seperated, can kill anyone (including themselves)
-
-
-Requires NativeUILua: https://github.com/FrazzIe/NativeUILua
-
-
-This was originally Created for SAMP, Then Icehax and Scammer both worked together to bring this project to fivem (they later abandoned the project in a semi working state. i have since fixed most of the issues and got quite a few of the bugs out of this. i got alot of flack for wanting to release this but i personally feel its right to do so for the fivem community.

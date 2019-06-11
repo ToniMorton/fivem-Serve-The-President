@@ -20,13 +20,5 @@ TeamWeapons = {
 	[TeamId.Civil] = {
 		"WEAPON_BAT",
 		"WEAPON_PISTOL"
-	},
-	[TeamId.Police] = {
-		"WEAPON_NIGHTSTICK",
-		"WEAPON_PISTOL",
-		"WEAPON_STUNGUN"
-	},	
-	[TeamId.AirForce] = {
-		"WEAPON_PISTOL"
 	}
 }

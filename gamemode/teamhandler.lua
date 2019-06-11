@@ -89,19 +89,3 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-
--- I'll look at this later
-
---[[Citizen.CreateThread(function()
-	while true do
-		Wait(500)
-		TriggerServerEvent("ServeThePresident:RequestTeamInfo")
-	end
-end)
-
-RegisterNetEvent("ServeThePresident:ReceiveTeamInfos")
-AddEventHandler("ServeThePresident:ReceiveTeamInfos", function(TeamStatuses)
-	for Team, Status in pairs(TeamStatuses) do
-		TriggerEvent("menu:setGreyedOut", not Status, ids[Team])
-	end
-end)]]--
