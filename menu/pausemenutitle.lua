@@ -1,1 +1,1 @@
-AddTextEntry("FE_THDR_GTAO", "FiveM - Serve The President")
+AddTextEntry("FE_THDR_GTAO", "FiveM - Protect the President")

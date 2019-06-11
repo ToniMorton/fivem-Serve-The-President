@@ -5,6 +5,10 @@ AddEventHandler("stp:server:playerDied", function(killer)
 	print("someone died")
 	local source = source
 	CreateThread(function()
+		if Players.GetPlayerTeam(source) == TeamId.Vice then
+			print("it was the VP!!!")
+			TriggerClientEvent("ptp:selectteam", source, 5)
+		end		
 		if Players.GetPlayerTeam(source) == TeamId.President then
 			print("it was the president!!!")
 			if killer ~= nil then

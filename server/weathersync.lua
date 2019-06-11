@@ -17,10 +17,10 @@ Citizen.CreateThread(function()
 		Wait(1000)
 		TriggerClientEvent("stp:weatherSync", -1, currentWeather)
 
-		weatherTransitionCooldown = weatherTransitionCooldown - 1
-		if weatherTransitionCooldown == 0 then
-			weatherTransitionCooldown = 300
-			currentWeather = weatherTypes[math.random(1, #weatherTypes)]
-		end
+		-- weatherTransitionCooldown = weatherTransitionCooldown - 1
+		-- if weatherTransitionCooldown == 0 then
+			-- weatherTransitionCooldown = 300
+			-- currentWeather = weatherTypes[math.random(1, #weatherTypes)]
+		-- end
 	end
 end)

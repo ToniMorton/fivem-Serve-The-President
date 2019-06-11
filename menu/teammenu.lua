@@ -1,112 +1,146 @@
-local ids = {}
-local overriden
-local cooldown
+local TeamNone = 0
+local TeamPres = 0
+local TeamVP = 0
+local TeamBodyguard = 0
+local TeamTerrorist = 0
+local TeamCivilian = 0
+local TeamPolice = 0
+local TeamAirForce = 0
 
-AddEventHandler("menu:setup", function()
-	ids = {}
+RegisterNetEvent("ptp:sendteamcount")
+AddEventHandler("ptp:sendteamcount", function(TeamNone, TeamPres, TeamVP, TeamBodyguard, TeamTerrorist, TeamCivilian, TeamPolice, TeamAirForce)
+TeamNone = TeamNone
+TeamPres = TeamPres
+TeamVP = TeamVP
+TeamBodyguard = TeamBodyguard
+TeamTerrorist = TeamTerrorist
+TeamCivilian = TeamCivilian
+TeamPolice = TeamPolice
+TeamAirForce = TeamAirForce
+end)
 
-	TriggerEvent("menu:registerModuleMenu", "Team Menu", function(id)
-		ids["menu"] = id
+Citizen.CreateThread(function()
+while true do
+Citizen.Wait(200)
+TriggerServerEvent("ptp:postteamcount")
+end
+end)
 
-		TriggerEvent("menu:addModuleItem", id, "President", nil, function(id) ids[TeamId.President] = id end, function()
-			TeamMenu.OnClick(TeamId.President)
-			--DebugPrint("STP::UpdateTeam::President")
-		end)
-		TriggerEvent("menu:addModuleItem", id, "Vice President", nil, function(id) ids[TeamId.Vice] = id end, function()
-			TeamMenu.OnClick(TeamId.Vice)
-			--DebugPrint("STP::UpdateTeam::Vice")
-		end)
-		TriggerEvent("menu:addModuleItem", id, "Bodyguard", nil, function(id) ids[TeamId.Bodyguard] = id end, function()
-			TeamMenu.OnClick(TeamId.Bodyguard)
-			--DebugPrint("STP::UpdateTeam::BodyGuard")
-		end)
-		TriggerEvent("menu:addModuleItem", id, "Terrorist", nil, function(id) ids[TeamId.Terrorist] = id end, function()
-			TeamMenu.OnClick(TeamId.Terrorist)
-			--DebugPrint("STP::UpdateTeam::Terrorist")
-		end)
-		TriggerEvent("menu:addModuleItem", id, "Civilian", nil, function(id) ids[TeamId.Civil] = id end, function()
-			TeamMenu.OnClick(TeamId.Civil)
-			--DebugPrint("STP::UpdateTeam::Civil")
-		end)
-	end)
+RegisterNetEvent("ptp:selectteam")
+AddEventHandler("ptp:selectteam", function(selectedteam)
+
+if selectedteam == 1 then
+	if TeamPres == 0 then
+		TeamMenu.OnClick(TeamId.President)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 2 then
+	if TeamVP == 0 then
+		TeamMenu.OnClick(TeamId.Vice)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 3 then
+	if TeamBodyguard >= 0 and TeamBodyguard <= 8 then
+		TeamMenu.OnClick(TeamId.Bodyguard)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 4 then
+	if TeamTerrorist >= 0 and TeamTerrorist <= 8 then
+		TeamMenu.OnClick(TeamId.Terrorist)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 5 then 
+	if TeamCivilian >= 0 and TeamCivilian <= 12 then
+		TeamMenu.OnClick(TeamId.Civil)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 6 then
+	if TeamPolice >= 0 and TeamPolice <= 10 then
+		TeamMenu.OnClick(TeamId.Police)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
+if selectedteam == 7 then
+	if TeamAirForce >= 0 and TeamAirForce <= 5 then
+		TeamMenu.OnClick(TeamId.AirForce)
+	else
+		TeamMenu.OnClick(TeamId.None)
+		SetNotificationTextEntry("STRING")
+		AddTextComponentString("<h3>~y~This team is full!~s~</h3>")
+		DrawNotification(false, true)
+	end
+end
+
 end)
 
 TeamMenu = {}
 function TeamMenu.OnClick(team)
 	CurrentTeam.Update(team)
-	TriggerEvent("menu:hideMenu")
-	cooldown = 60
 end
+
+IsPlayerPres = false
+IsPlayerVP = false
+
+
+RegisterNetEvent("ptp:updatepres")
+AddEventHandler("ptp:updatepres", function(pres, vp)
+IsPlayerPres = pres
+IsPlayerVP = vp
+end)
 
 Citizen.CreateThread(function()
 	while true do
-		Wait(1000)
-
-		if not overriden and cooldown then
-			if cooldown > 0 then
-				if CurrentTeam.Get() == TeamId.None then
-					cooldown = 0
-				else
-					cooldown = cooldown - 1
-				end
-				TriggerEvent("menu:setGreyedOut", true, ids["menu"])
-				TriggerEvent("menu:setDesc", ids["menu"], string.format("Please wait %02i seconds", cooldown))
-			else
-				TeamMenu.OverrideGreyedOut(false)
-				cooldown = nil
-			end
-		end
+		Citizen.Wait(500)
+		TriggerServerEvent("checkforpres",GetPlayerServerId(PlayerId()))
 	end
 end)
 
-function TeamMenu.OverrideGreyedOut(state, desc)
-	overriden = state
-	for _, id in pairs(ids) do
-		TriggerEvent("menu:setGreyedOut", state, id)
-		TriggerEvent("menu:setDesc", id, desc)
-	end
-end
-
 Citizen.CreateThread(function()
 	while true do
-		Wait(1)
-
-		if not overriden then
-			if CurrentTeam.Get() == TeamId.President or CurrentTeam.Get() == TeamId.Vice then
-				TeamMenu.OverrideGreyedOut(true, "No giving up as a president!")
+		Citizen.Wait(10)
+		if IsControlJustPressed(0, 167) then
+			if IsPlayerPres == false and IsPlayerVP == false then
+				TriggerEvent("ptp:openmenu")
 			else
-				local teamAmounts = {}
-				for _, teamId in pairs(TeamId) do
-					teamAmounts[teamId] = 0
-				end
-
-				for i = 0, 32 do
-					if NetworkIsPlayerConnected(i) and DoesEntityExist(GetPlayerPed(i)) and DecorExistOn(GetPlayerPed(i), "_PLAYER_TEAM") then
-						local teamId = DecorGetInt(GetPlayerPed(i), "_PLAYER_TEAM")
-						teamAmounts[teamId] = teamAmounts[teamId] + 1
-					end
-				end
-
-				TriggerEvent("menu:setGreyedOut", true, ids[CurrentTeam.Get()])
-				TriggerEvent("menu:setGreyedOut", teamAmounts[TeamId.President] > 0, ids[TeamId.President])
-				TriggerEvent("menu:setGreyedOut", teamAmounts[TeamId.President] < 1, ids[TeamId.Vice])
-
-				local lowest = 99999
-				for team, amount in pairs(teamAmounts) do
-					if team ~= TeamId.None and team ~= TeamId.President and team ~= TeamId.Vice and amount < lowest then
-						lowest = amount
-					end
-				end
-				for team, amount in pairs(teamAmounts) do
-					if team ~= TeamId.None and team ~= TeamId.President and team ~= TeamId.Vice and team ~= CurrentTeam.Get() then
-						local greyOut = teamAmounts[team] > lowest + 1
-						if team == TeamId.Bodyguard then
-							greyOut = teamAmounts[TeamId.President] == 0
-						end
-						TriggerEvent("menu:setGreyedOut", greyOut, ids[team])
-					end
-				end
+				SetNotificationTextEntry("STRING")
+				AddTextComponentString("~r~You cannot swap teams while playing President/Vice President!")
+				DrawNotification(false, true)
 			end
-		end
+        end
 	end
 end)

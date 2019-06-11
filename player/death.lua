@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
 		if DoesEntityExist(PlayerPedId()) and IsEntityDead(PlayerPedId()) then
 			-- time to find out if this was a suicide or if he was killed! :o
 			local killer, killerweapon = NetworkGetEntityKillerOfPlayer(player)
-			TeamMenu.OverrideGreyedOut(true)
+			--TeamMenu.OverrideGreyedOut(true)
 			drawDeathScaleform = true
 			
 			PlaySoundFrontend(-1, "Bed", "WastedSounds", true)
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
 					DoScreenFadeIn(500)
 				end
 				
-				TeamMenu.OverrideGreyedOut(false)
+				--TeamMenu.OverrideGreyedOut(false)
 			end
 		end
 	end

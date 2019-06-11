@@ -17,7 +17,6 @@ function CurrentTeam.Get()
 end
 
 Citizen.CreateThread(function()
-	NetworkSetFriendlyFireOption(false)
 
 	while true do
 		Wait(100)
@@ -30,14 +29,28 @@ Citizen.CreateThread(function()
 				local tryingVehicle = GetVehiclePedIsTryingToEnter(PlayerPedId())
 				if GetVehicleClass(tryingVehicle) == 15 or GetVehicleClass(tryingVehicle) == 16 then
 					TaskPause(PlayerPedId(), 0)
-					BeginTextCommandPrint("STRING")
-					AddTextComponentSubstringPlayerName("~r~You can't enter helis/planes as (Vice) President!")
-					EndTextCommandPrint(5000, true)
+					SetNotificationTextEntry("STRING")
+					AddTextComponentString("<h3>~r~You cannot use Aircraft.</h3>")
+					DrawNotification(false, true)
 				end
 			end
 		end
 	end
 end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local currentTeam = CurrentTeam.Get()
+		if currentTeam == TeamId.President then
+			TriggerEvent("ptp:updatepres", true, false)
+		elseif currentTeam == TeamId.Vice then
+			TriggerEvent("ptp:updatepres", false, true)
+		else
+		end
+	end
+end)
+
 
 TeamHandler = {}
 function TeamHandler.HandleBlipsAndFriendly()

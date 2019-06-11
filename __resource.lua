@@ -28,7 +28,9 @@ client_scripts {
 	"player/fancyeffects.lua",
 
 	"spawns/vehiclespawns.lua",
-	"spawns/pickupspawns.lua"
+	"spawns/pickupspawns.lua",
+	
+	"init.lua"
 }
 
 server_scripts {
@@ -39,5 +41,3 @@ server_scripts {
 	"server/invincibletime.lua",
 	"server/weathersync.lua"
 }
-
-shared_script 'util/debug.lua'
